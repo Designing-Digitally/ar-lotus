@@ -1,0 +1,151 @@
+{
+  "name": "ar-lotus",
+  "version": "1.0.0",
+  "description": "Demo for AR lotus",
+  "main": "app.js",
+  "scripts": {
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack serve --config webpack.dev.config.js --hot"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "arrow-spacing": [
+        "warn",
+        {
+          "before": true,
+          "after": true
+        }
+      ],
+      "brace-style": [
+        "error",
+        "allman",
+        {
+          "allowSingleLine": true
+        }
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "comma-spacing": [
+        "error",
+        {
+          "after": true
+        }
+      ],
+      "curly": [
+        "error",
+        "multi",
+        "consistent"
+      ],
+      "dot-location": [
+        "error",
+        "property"
+      ],
+      "handle-callback-err": "off",
+      "indent": [
+        "warn",
+        "tab"
+      ],
+      "max-nested-callbacks": [
+        "error",
+        {
+          "max": 4
+        }
+      ],
+      "max-statements-per-line": [
+        "error",
+        {
+          "max": 2
+        }
+      ],
+      "no-console": "off",
+      "no-empty-function": "error",
+      "no-floating-decimal": "error",
+      "no-inline-comments": "error",
+      "no-shadow": [
+        "error",
+        {
+          "allow": [
+            "err",
+            "resolve",
+            "reject"
+          ]
+        }
+      ],
+      "no-unused-vars": "warn",
+      "no-var": "warn",
+      "no-lonely-if": "off",
+      "no-undef": "off",
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "prefer-const": "warn",
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": "error",
+      "no-trailing-spaces": "off",
+      "space-before-blocks": [
+        "error",
+        "never"
+      ],
+      "space-before-function-paren": [
+        "error",
+        {
+          "anonymous": "never",
+          "named": "never",
+          "asyncArrow": "always"
+        }
+      ],
+      "space-in-parens": [
+        "error",
+        "never"
+      ],
+      "yoda": "warn"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Designing-Digitally/ar-lotus.git"
+  },
+  "keywords": [
+    "ar",
+    "aframe-ar",
+    "augmented-reality",
+    "arJS"
+  ],
+  "license": "SEE LICENSE IN LICENSE.md",
+  "dependencies": {
+    "clean-webpack-plugin": "^4.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.71.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1",
+    "@babel/core": "^7.17.9",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.4",
+    "eslint": "^8.13.0",
+    "underscore": "^1.13.2",
+    "fs-extra": "^10.1.0",
+    "html-webpack-plugin": "^5.5.0",
+    "copy-webpack-plugin": "^10.2.4"
+  },
+  "bugs": {
+    "url": "https://github.com/Designing-Digitally/ar-lotus/issues"
+  },
+  "homepage": "https://github.com/Designing-Digitally/ar-lotus#readme"
+}
