@@ -13,21 +13,26 @@ module.exports = {
 		filename: 'bundle.js',
 	},
 	module: {
-		rules: [{
-			test: /.js?$/,
-			include: [
-				path.resolve(__dirname, 'app'),
-			],
-			exclude: [
-				path.resolve(__dirname, 'node_modules'),
-			],
-			loader: 'babel-loader',
-			query: {
-				presets: [
-					['@babel/env'],
+		rules: 
+		[
+			{
+				test: /\.js?$/,
+				include: [
+					path.resolve(__dirname, 'app'),
 				],
+				exclude: [
+					path.resolve(__dirname, 'node_modules'),
+				],
+				use:{
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							['@babel/env'],
+						],
+					},
+				},
 			},
-		}],
+		],
 	},
 	plugins:[
 		new HtmlWebpackPlugin(

@@ -6,7 +6,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
 	mode: 'development',
 	entry: path.join(__dirname, './src/*.js'),
-	watch: true,
 	output: {
 		path: path.join(__dirname, 'dist'),
 		publicPath: '/dist/',
@@ -14,21 +13,26 @@ module.exports = {
 		chunkFilename: '[name].js',
 	},
 	module: {
-		rules: [{
-			test: /\.js?$/,
-			include: [
-				path.resolve(__dirname, 'app'),
-			],
-			exclude: [
-				path.resolve(__dirname, 'node_modules'),
-			],
-			loader: 'babel-loader',
-			query: {
-				presets: [
-					['@babel/env'],
+		rules: 
+		[
+			{
+				test: /\.js?$/,
+				include: [
+					path.resolve(__dirname, 'app'),
 				],
+				exclude: [
+					path.resolve(__dirname, 'node_modules'),
+				],
+				use:{
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							['@babel/env'],
+						],
+					},
+				},
 			},
-		}],
+		],
 	},
 	plugins:[
 		new HtmlWebpackPlugin(
