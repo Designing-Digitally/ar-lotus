@@ -3,9 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+// TODO: USE NODE FS TO GET JS FILE IN SRC ROOT AND DYNAMICALLY ADD IT THE ENTRY
+
 module.exports = {
 	mode: 'development',
-	entry: path.join(__dirname, './src/*.js'),
+	entry: path.join(__dirname, './src/app.js'),
 	output: {
 		path: path.join(__dirname, 'dist'),
 		publicPath: '/dist/',
