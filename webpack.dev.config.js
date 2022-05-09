@@ -54,8 +54,9 @@ module.exports = {
 	devtool: 'source-map',
 	devServer: {
 		server: 'https',
-		contentBase: path.join(__dirname, '/dist/'),
-		inline: true,
+		static: {
+			directory: path.resolve(__dirname, './dist'),
+		},
 		host: 'localhost',
 		port: 9000,
 		devMiddleware:{
