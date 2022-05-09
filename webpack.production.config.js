@@ -1,4 +1,8 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = {
 	mode: 'production',
 	entry: path.join(__dirname, 'app', 'index'),
@@ -25,14 +29,21 @@ module.exports = {
 			},
 		}],
 	},
+	plugins:[
+		new HtmlWebpackPlugin(
+			{
+				template: path.resolve(__dirname, './src/index.html'),
+				filename: 'index.html',
+			}),
+		new CleanWebpackPlugin(),
+		new CopyWebpackPlugin(
+			{
+				patterns: [
+					{ from: './src/models/', to: 'models' },
+				],
+			}),
+	],
 	resolve: {
 		extensions: ['.json', '.js'],
-	},
-	devtool: 'source-map',
-	devServer: {
-		contentBase: path.join(__dirname, '/dist/'),
-		inline: true,
-		host: 'localhost',
-		port: 9000,
 	},
 };
