@@ -5,12 +5,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	mode: 'production',
-	entry: path.join(__dirname, 'app', 'index'),
-	watch: true,
+	entry: './src/app.js',
 	output: {
-		path: path.join(__dirname, 'dist'),
-		publicPath: '/dist/',
-		filename: 'bundle.js',
+		filename: 'app.js',
+		path: path.resolve(__dirname, './dist'),
+		publicPath: '',
 	},
 	module: {
 		rules: 
@@ -44,7 +43,8 @@ module.exports = {
 		new CopyWebpackPlugin(
 			{
 				patterns: [
-					{ from: './src/models/', to: 'models' },
+					{ from: './src/images/', to: 'images' },
+					{ from: './src/videos/', to: 'videos' },
 				],
 			}),
 	],
