@@ -2,71 +2,161 @@
 <html lang="lang">
 <head>
 	<meta charset="charset">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>A-Frame -- Lotus Example</title>
-	<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-	<script src="https://raw.githack.com/AR-js-org/AR.js/3.4.0/aframe/build/aframe-ar-nft.js"></script>
-
+	<script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
 	<script>
 		window.onload = function()
 		{
 			AFRAME.registerComponent('videohandler', {
 
-			init: function() 
-			{
-				const marker = this.el;
-
-				this.vid = document.querySelector('#vid');
-				
-				marker.addEventListener('markerFound', function() 
+				init: function() 
 				{
-					this.vid.play();
-				}.bind(this));
+					const marker = this.el;
 
-				marker.addEventListener('markerLost', function() 
-				{
-					this.vid.pause();
-					this.vid.currentTime = 0;
-				}.bind(this));
-			},
+					this.vid = document.querySelector('#vid');
+					
+					marker.addEventListener('targetFound', function() 
+					{
+						console.log(this.vid)
+						this.vid.play();
+					}.bind(this));
+
+					marker.addEventListener('targetLost', function() 
+					{
+						console.log('pausing')
+						this.vid.pause();
+						this.vid.currentTime = 0;
+					}.bind(this));
+				},
 
 			});
 		}
+
+		function init()
+		{
+			console.log('running')
+			const btn = document.getElementById("Button");
+			btn.addEventListener('click', () => 
+			{
+				const iframe = document.createElement('iframe');
+				iframe.style.height = 0;
+				iframe.style.width = 0;
+				iframe.style.visibility = 'hidden';
+
+				iframe.setAttribute('srcdoc', '<html><body></body></html>');
+				document.body.appendChild(iframe);
+
+				iframe.addEventListener('load', () => 
+				{
+					const image = document.createElement('img');
+					image.src = 'images/Lotus_Pear_Front.png'
+					image.style.maxWidth = '100%';
+
+					const body = iframe.contentDocument.body;
+					body.style.textAlign = "center";
+					body.appendChild(image);
+
+					image.addEventListener('load', () => 
+					{
+						iframe.contentWindow.print();
+					})
+				});
+			})
+		}
 	</script>
+	  
 
 	<style>
-		.arjs-loader {
-		  height: 100%;
-		  width: 100%;
-		  position: absolute;
-		  top: 0;
-		  left: 0;
-		  background-color: rgba(0, 0, 0, 0.8);
-		  z-index: 9999;
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
+		.btn-flip {
+			margin: 10px 0;
+			opacity: 1;
+			outline: 0;
+			color: #fff;
+			line-height: 40px;
+			position: relative;
+			text-align: center;
+			letter-spacing: 1px;
+			display: inline-block;
+			text-decoration: none;
+			font-family: 'Open Sans';
+			text-transform: uppercase;
 		}
-	  
-		.arjs-loader div {
-		  text-align: center;
-		  font-size: 1.25em;
-		  color: white;
-		}
-	</style>	  
-</head>
-<body style="margin : 0px; overflow: hidden;">
-	<div class="arjs-loader">
-		<div>Loading, please wait...</div>
-	</div>
-	<a-scene vr-mode-ui="enabled: false;", renderer="antialias: true; alpha: true; precision: medium;" embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-		<a-assets>
-			<video src="./videos/DDINC_2018LogoAnimation.mp4" preload="auto" id="vid" crossorigin webkit-playsinline autoplay muted playsinline></video>
-		</a-assets>
 
-		<a-nft videohandler type="nft" url="./data/dataNFT/Lotus_Pear_Front" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
-			<a-video src="#vid" position="50 150 -100" rotation="90 0 100" width="300" height="175"></a-video>
-		</a-nft>
-		<a-entity camera></a-entity>
-	</a-scene>
+		.btn-flip:hover:after {
+			opacity: 1;
+			transform: translateY(0) rotateX(0);
+		}
+
+		.btn-flip:hover:before {
+			opacity: 0;
+			transform: translateY(50%) rotateX(90deg);
+		}
+
+		.btn-flip:after {
+			top: 0;
+			left: 0;
+			opacity: 0;
+			width: 100%;
+			color: #323237;
+			display: block;
+			transition: 0.5s;
+			position: absolute;
+			background: #adadaf;
+			content: attr(data-back);
+			transform: translateY(-50%) rotateX(90deg);
+		}
+
+		.btn-flip:before {
+			top: 0;
+			left: 0;
+			opacity: 1;
+			color: #adadaf;
+			display: block;
+			padding: 0 30px;
+			line-height: 40px;
+			transition: 0.5s;
+			position: relative;
+			background: #323237;
+			content: attr(data-front);
+			transform: translateY(0) rotateX(0);
+		}
+
+		#Button{
+			display:grid;
+		}
+
+		#Button a {
+			z-index:100;
+		}
+
+		video {
+			top: 0% !important;
+		}
+	</style>
+</head>
+<body onload="init();">
+	<div id="Button">
+		<a download class="btn-flip" data-back="Lotus Pearl" data-front="Print Target"></a>
+	</div>
+	<div id="SceneContainer">
+		<a-scene embedded mindar-image="imageTargetSrc: ./data/mind/targets.mind; filterMinCF:0.1; filterBeta:10;" renderer="antialias: true; logarithmicDepthBuffer: true;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+			<a-assets>
+				<video src="./videos/DDINC_2018LogoAnimation.mp4" preload="auto" id="vid" crossorigin autoplay muted></video>
+			</a-assets>
+
+			<a-entity position="0 0 0" videohandler mindar-image-target="targetIndex: 0;">
+				<a-video src="#vid" position="0 0 0" rotation="0 0 0" width="2" height="1"></a-video>
+			</a-entity>
+
+			<a-entity position="0 0 0" videohandler mindar-image-target="targetIndex: 1;">
+				<a-video src="#vid" position="0 0 0" rotation="0 0 0" width="2" height="1"></a-video>
+			</a-entity>
+
+			<a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+		</a-scene>
+	</div>
 </body>
 </html>

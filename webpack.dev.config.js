@@ -47,6 +47,7 @@ module.exports = {
 				patterns: [
 					{ from: './src/images/', to: 'images' },
 					{ from: './src/videos/', to: 'videos' },
+					{ from: './src/data/', to: 'data' },
 				],
 			}),
 	],
@@ -60,7 +61,7 @@ module.exports = {
 			directory: path.resolve(__dirname, './dist'),
 		},
 		host: 'localhost',
-		port: 9000,
+		port: 9001,
 		devMiddleware:{
 			index: 'index.html',
 			writeToDisk: true,
